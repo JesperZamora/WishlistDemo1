@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome To Wishlist</title>
-    <link rel="stylesheet" th:href="@{src/main/resources/static/style.css}"/>
+    <link th:href="@{/style.css}" href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <div>
     <div>
       <h1>Welcome to Wishlist</h1>
-      <h5>Login or Sign up</h5>
     </div>
     <div>
-      <a href="#">Login</a>
-      <a th:href="">Sign up</a>
+      <a href="#">Login</a><p> or </p><a th:href="@{/wishlist/create}">Sign up</a>
     </div>
   </div>
 </body>

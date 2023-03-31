@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Create Wish</title>
 </head>
 <body>
-$END$
+  <h1>Create Wish</h1>
+  <div>
+      <form th:action="@{/wishlist/addwish}" th:object="${newWish}" method="post">
+          <label>
+              <input type="text" th:field="*{title}" placeholder="type title"><br/><br/>
+          </label>
+
+          <label>
+              <textarea th:field="*{description}" placeholder="type description"></textarea><br/><br/>
+          </label>
+
+          <label>
+              <input type="text" th:field="*{url}" placeholder="insert url (optional)"><br/><br/>
+          </label>
+
+          <input type="hidden" th:field="*{userId}">
+
+          <button type="submit">Submit</button>
+          <button type="reset">reset</button>
+      </form>
+  </div>
 </body>
 </html>

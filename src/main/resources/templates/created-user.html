@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Registration Successful</title>
 </head>
 <body>
-$END$
+  <h1>User successfully created!</h1>
+  <div>
+      <span th:text="${firstName}"></span> <br/>
+      <span th:text="${lastName}"></span> <br/>
+      <span th:text="${email}"></span><br/>
+      <span th:text="${password}"></span><br/>
+  </div>
+  <a th:href="@{'/wishlist/mainpage/' + ${userId}}">Click and go to your Wishlist</a>
 </body>
 </html>
