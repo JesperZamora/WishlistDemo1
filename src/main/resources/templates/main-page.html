@@ -10,11 +10,11 @@
 
 <body>
 <h1 th:text="'Welcome ' + ${firstName} +' ' + ${lastName} + ' to your personal wishlist'"></h1>
-<a th:href="@{'/wishlist/createwish/' + ${userId}}">Add wish</a>
+<a href="@{}">Update your info</a>
+<a href="@{}">Delete your account</a>
 <br/>
 <br>
-<a href="@{}">Update your info</a>
-<a href="@{}">Delete your accout</a>
+<a th:href="@{'/wishlist/createwish/' + ${userId}}">Add wish</a>
 <br>
 <br>
 
@@ -36,7 +36,7 @@
                 <small class="text-body-secondary">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <a th:href="${wl.getUrl()}" target="_blank" class="btn btn-light btn-sm">Visit website</a>
-                        <a href="#" class="btn btn-light btn-sm">Update wish</a>
+                        <a th:href="@{'/wishlist/updatewish/'+ ${wl.getWishId()}}" class="btn btn-light btn-sm">Update wish</a>
                     </div>
                 </small>
             </div>
@@ -50,9 +50,12 @@
     <br>
     <td th:text="${wl.getDescription()}" ></td>
     <br>
+    <div>
+        <a th:href="${wl.getUrl()}"> Visit website</a>
+    </div>
     <td th:text="${wl.getUrl()}" ></td>
     <br>
-    <a href="#">Update wish</a>
+    <a th:href="@{'/wishlist/updatewish/'+ ${wl.getWishId()}}">Update wish</a>
     <a th:href="@{'/wishlist/deletewish/'+ ${wl.getUserId()} + '/' + ${wl.getWishId()}}">Delete wish</a>
     <br><br>
 </tr>

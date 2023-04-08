@@ -7,10 +7,21 @@
 <body>
   <h1>User successfully created!</h1>
   <div>
+      <label>#UserID:</label>
+      <span th:text="${userId}"></span> <br/>
+
+      <label>First name:</label>
       <span th:text="${firstName}"></span> <br/>
+
+      <label>Last name:</label>
       <span th:text="${lastName}"></span> <br/>
+
+      <label>Email:</label>
       <span th:text="${email}"></span><br/>
+
+      <label>Password:</label>
       <span th:text="${password}"></span><br/>
+      <p>Password will only be shown once</p>
   </div>
   <a th:href="@{'/wishlist/mainpage/' + ${userId}}">Click and go to your Wishlist</a>
 </body>

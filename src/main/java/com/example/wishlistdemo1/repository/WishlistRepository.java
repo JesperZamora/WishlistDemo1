@@ -101,9 +101,44 @@ public class WishlistRepository {
         return wishList;
     }
 
+    public Wish getSpecificWish(int wishId){
+        Wish wishFound = null;
+        try(Connection con = DriverManager.getConnection(url,user_id,user_pwd)){
+            String SQL = "SELECT * FROM wishlist WHERE wish_id = ?";
+            PreparedStatement pstmt = con.prepareStatement(SQL);
+            pstmt.setInt(1,wishId);
 
-    public void updateWish(){
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                wishFound = new Wish(
+                        rs.getInt("wish_id"),
+                        rs.getString("wish_title"),
+                        rs.getString("wish_description"),
+                        rs.getString("wish_url"),
+                        rs.getInt("user_id"));
 
+            }
+            return wishFound;
+
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateWish(Wish wish){
+        try(Connection con = DriverManager.getConnection(url,user_id,user_pwd)) {
+            String SQL = "UPDATE wishlist SET wish_title=?, wish_description=?, wish_url=? WHERE wish_id = ?;";
+            PreparedStatement pstmt = con.prepareStatement(SQL);
+            pstmt.setString(1,wish.getTitle());
+            pstmt.setString(2,wish.getDescription());
+            pstmt.setString(3,wish.getUrl());
+            pstmt.setInt(4,wish.getWishId());
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public void updateUser(){

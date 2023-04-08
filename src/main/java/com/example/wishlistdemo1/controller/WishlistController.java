@@ -39,22 +39,22 @@ public class WishlistController {
         return "created-user";
     }
 
-    @GetMapping("/mainpage/{id}")
-    public String mainPage(@PathVariable int id, Model model){
-        User user = wishlistRepository.getUser(id);
+    @GetMapping("/mainpage/{uid}")
+    public String mainPage(@PathVariable int uid, Model model){
+        User user = wishlistRepository.getUser(uid);
         model.addAttribute("userId", user.getUserId());
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("lastName", user.getLastName());
 
-        List<Wish> wishList = wishlistRepository.getWishList(id);
+        List<Wish> wishList = wishlistRepository.getWishList(uid);
         model.addAttribute("wishlist", wishList);
         return "main-page";
     }
 
-    @GetMapping("/createwish/{id}")
-    public String createWish(@PathVariable int id, Model model){
+    @GetMapping("/createwish/{uid}")
+    public String createWish(@PathVariable int uid, Model model){
         Wish newWish = new Wish();
-        newWish.setUserId(id);
+        newWish.setUserId(uid);
         model.addAttribute("newWish", newWish);
         return "create-wish";
     }
@@ -65,14 +65,17 @@ public class WishlistController {
         return "redirect:/wishlist/mainpage/" + newWish.getUserId();
     }
 
-    @GetMapping("/updatewish")
-    public String updateWish(){
-        return "";
+    @GetMapping("/updatewish/{wid}")
+    public String updateWish(@PathVariable int wid, Model model){
+        Wish updateWish = wishlistRepository.getSpecificWish(wid);
+        model.addAttribute("updateWish", updateWish);
+        return"update-wish";
     }
 
-    @GetMapping("/updateuser")
-    public String updateUser(){
-        return "";
+    @PostMapping("/updatewish")
+    public String updateUser(@ModelAttribute Wish wishUpdate){
+        wishlistRepository.updateWish(wishUpdate);
+        return "redirect:/wishlist/mainpage/" + wishUpdate.getUserId();
     }
 
     @PostMapping("/updateuser")
@@ -83,7 +86,7 @@ public class WishlistController {
     @GetMapping("/deletewish/{uid}/{wid}")
     public String deleteWish(@PathVariable int uid, @PathVariable int wid){
         wishlistRepository.deleteWish(wid);
-        return "redirect:/wishlist/mainpage/" + uid;
+        return "redirect:/wishlist/main-page/" + uid;
     }
 
     @GetMapping("/deleteuser")
