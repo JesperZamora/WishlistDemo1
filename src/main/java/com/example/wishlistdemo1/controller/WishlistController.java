@@ -78,15 +78,15 @@ public class WishlistController {
         return "redirect:/wishlist/mainpage/" + wishUpdate.getUserId();
     }
 
-    @PostMapping("/updateuser")
-    public String updateUser(@ModelAttribute User user){
-        return "";
-    }
-
     @GetMapping("/deletewish/{uid}/{wid}")
     public String deleteWish(@PathVariable int uid, @PathVariable int wid){
         wishlistRepository.deleteWish(wid);
-        return "redirect:/wishlist/main-page/" + uid;
+        return "redirect:/wishlist/mainpage/" + uid;
+    }
+
+    @PostMapping("/updateuser")
+    public String updateUser(@ModelAttribute User user){
+        return "";
     }
 
     @GetMapping("/deleteuser")
