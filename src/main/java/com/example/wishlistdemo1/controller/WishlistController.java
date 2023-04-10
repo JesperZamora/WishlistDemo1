@@ -73,7 +73,7 @@ public class WishlistController {
     }
 
     @PostMapping("/updatewish")
-    public String updateUser(@ModelAttribute Wish wishUpdate){
+    public String updateUserWish(@ModelAttribute Wish wishUpdate){
         wishlistRepository.updateWish(wishUpdate);
         return "redirect:/wishlist/mainpage/" + wishUpdate.getUserId();
     }
