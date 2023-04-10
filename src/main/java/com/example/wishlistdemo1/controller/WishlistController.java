@@ -42,6 +42,7 @@ public class WishlistController {
     @GetMapping("/mainpage/{uid}")
     public String mainPage(@PathVariable int uid, Model model){
         User user = wishlistRepository.getUser(uid);
+
         model.addAttribute("userId", user.getUserId());
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("lastName", user.getLastName());

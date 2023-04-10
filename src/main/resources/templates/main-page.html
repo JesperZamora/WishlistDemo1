@@ -45,10 +45,13 @@
 </div>
 <br><br>
 
-<tr th:each="wl : ${wishlist}">
-    <td th:text="${wl.getTitle()}" ></td>
+<tr th:if="${wishlist.isEmpty()}">
+    <p>No wishes made... Add a wish!</p>
+</tr>
+<tr th:unless="${wishlist.isEmpty()}" th:each="wl : ${wishlist}">
+    <td th:text="${wl.getTitle()}"></td>
     <br>
-    <td th:text="${wl.getDescription()}" ></td>
+    <td th:text="${wl.getDescription()}"></td>
     <br>
     <div>
         <a th:href="${wl.getUrl()}"> Visit website</a>
