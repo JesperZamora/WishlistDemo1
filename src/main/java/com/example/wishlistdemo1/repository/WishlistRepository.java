@@ -1,5 +1,6 @@
 package com.example.wishlistdemo1.repository;
 
+import com.example.wishlistdemo1.dto.UserWishListDTO;
 import com.example.wishlistdemo1.model.User;
 import com.example.wishlistdemo1.model.Wish;
 import org.springframework.beans.factory.annotation.Value;
@@ -169,6 +170,49 @@ public class WishlistRepository {
             pstmt2.executeUpdate();
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public UserWishListDTO getUserAndWishes(int id){
+        UserWishListDTO userWishes = null;
+
+        try(Connection con = DriverManager.getConnection(url,user_id,user_pwd)){
+            String SQL = "SELECT users.user_id, first_name, last_name, wish_id, wish_title, wish_description, wish_url, wishlist.user_id  FROM users LEFT JOIN wishlist ON users.user_id = wishlist.user_id WHERE users.user_id = ?;";
+            PreparedStatement pstmt = con.prepareStatement(SQL);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            int currentID = 0;
+
+            while (rs.next()){
+                //user first and last name
+                int userID = rs.getInt("users.user_id");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+
+                // users wishes
+                int wishId = rs.getInt("wish_id");
+                String title = rs.getString("wish_title");
+                String description = rs.getString("wish_description");
+                String url = rs.getString("wish_url");
+                int uID = rs.getInt("wishlist.user_id");
+
+
+                if(currentID == id) {
+                    userWishes.addWish(new Wish(wishId, title, description, url, uID));
+                } else {
+                    if(userWishes == null && title != null) {
+                        userWishes = new UserWishListDTO(userID, firstName, lastName, new ArrayList<>(List.of(new Wish(wishId, title, description, url, uID))));
+                        currentID = userID;
+                    } else {
+                        userWishes = new UserWishListDTO(userID, firstName, lastName, new ArrayList<>());
+                    }
+                }
+
+            }
+            return userWishes;
+        } catch (SQLException e){
             throw new RuntimeException(e);
         }
     }

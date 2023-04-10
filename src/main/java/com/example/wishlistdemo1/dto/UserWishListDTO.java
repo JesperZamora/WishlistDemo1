@@ -5,16 +5,22 @@ import com.example.wishlistdemo1.model.Wish;
 import java.util.List;
 
 public class UserWishListDTO {
+    private int userId;
     private String firstName;
     private String lastName;
     List<Wish> userWishlist;
 
     public UserWishListDTO() {}
 
-    public UserWishListDTO(String firstName, String lastName, List<Wish> userWishlist) {
+    public UserWishListDTO(int userId, String firstName, String lastName, List<Wish> userWishlist) {
+        this.userId =userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userWishlist = userWishlist;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public String getFirstName() {

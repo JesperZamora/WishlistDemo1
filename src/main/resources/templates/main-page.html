@@ -9,18 +9,18 @@
 <link th:href="@{/style.css}" href="/style.css" rel="stylesheet" type="text/css" />
 
 <body>
-<h1 th:text="'Welcome ' + ${firstName} +' ' + ${lastName} + ' to your personal wishlist'"></h1>
+<h1 th:text="'Welcome ' + ${userWishes.firstName} +' ' + ${userWishes.lastName} + ' to your personal wishlist'"></h1>
 <a href="@{}">Update your info</a>
 <a href="@{}">Delete your account</a>
 <br/>
 <br>
-<a th:href="@{'/wishlist/createwish/' + ${userId}}">Add wish</a>
+<a th:href="@{'/wishlist/createwish/' + ${userWishes.userId}}">Add wish</a>
 <br>
 <br>
 
 <!--can be used for layout -->
-<div class="row row-cols-1 row-cols-md-5 g-4">
-    <div class="col" th:each="wl : ${wishlist}">
+<!--<div class="row row-cols-1 row-cols-md-5 g-4">
+    <div class="col" th:each="wl : ${userWishes.getUserWishlist()}">
         <div class="card h-100">
             <div>
                 <span class="icon-close">
@@ -43,9 +43,13 @@
         </div>
     </div>
 </div>
-<br><br>
+<br><br>-->
 
-<tr th:each="wl : ${wishlist}">
+<tr th:if="${userWishes.getUserWishlist().isEmpty()}">
+    <p>No wishes yet</p>
+</tr>
+
+<tr th:unless="${userWishes.getUserWishlist() == null}" th:each="wl : ${userWishes.getUserWishlist()}">
     <td th:text="${wl.getTitle()}" ></td>
     <br>
     <td th:text="${wl.getDescription()}" ></td>
