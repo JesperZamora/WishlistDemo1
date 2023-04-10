@@ -56,8 +56,6 @@ public class WishlistController {
     public String mainPage(@PathVariable int uid, Model model){
         UserWishListDTO userWishListDTO = wishlistRepository.getUserAndWishes(uid);
         model.addAttribute("userWishes", userWishListDTO);
-        System.out.println(userWishListDTO.getUserId());
-        System.out.println(userWishListDTO.getFirstName());
         return "main-page";
     }
 

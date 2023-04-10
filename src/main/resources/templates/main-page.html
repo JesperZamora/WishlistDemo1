@@ -49,7 +49,7 @@
     <p>No wishes yet</p>
 </tr>
 
-<tr th:unless="${userWishes.getUserWishlist() == null}" th:each="wl : ${userWishes.getUserWishlist()}">
+<tr th:unless="${userWishes.getUserWishlist().isEmpty()}" th:each="wl : ${userWishes.getUserWishlist()}">
     <td th:text="${wl.getTitle()}" ></td>
     <br>
     <td th:text="${wl.getDescription()}" ></td>
